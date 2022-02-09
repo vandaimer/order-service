@@ -1,0 +1,10 @@
+{
+    "request": {
+        "urlPathPattern": "/products/veggie-box",
+        "method": "GET"
+    },
+    "response": {
+        "status": 500,
+        "fixedDelayMilliseconds": 200
+    }
+}

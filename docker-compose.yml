@@ -1,0 +1,67 @@
+version: '3'
+
+services:
+  order-service:
+    build: ./
+    command: sh -c 'NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-program uvicorn main:app --reload --host 0.0.0.0'
+    volumes:
+      - ./:/app/
+    ports:
+      - 8000:8000
+    environment:
+     - DATABASE_HOST=database
+     - DATABASE_USER=admin
+     - DATABASE_PASSWORD=food
+     - DATABASE_DB=admin
+     - RABBITMQ_USER=admin
+     - RABBITMQ_PASS=food
+     - RABBITMQ_URI=rabbitmq
+     - USER_SERVICE_URI=http://user-service:8080
+     - PRODUCT_SERVICE_URI=http://product-service:8080
+     - NEW_RELIC_LICENSE_KEY=88d8abf7b16ce32560cdc3c520e2db0ef337NRAL
+    depends_on:
+      - database
+      - user-service
+      - product-service
+      - rabbitmq
+
+  database:
+    image: postgres:13.2-alpine
+    environment:
+     - POSTGRES_USER=admin
+     - POSTGRES_PASSWORD=food
+     - POSTGRES_DB=admin
+
+  product-service:
+    image: rodolpheche/wiremock:2.23.2-alpine
+    command: --verbose
+    volumes:
+      - ./wiremock/product-service/stubs:/home/wiremock
+    ports:
+    - "8081:8080"
+
+  user-service:
+    image: rodolpheche/wiremock:2.23.2-alpine
+    command: --verbose
+    volumes:
+      - ./wiremock/user-service/stubs:/home/wiremock
+    ports:
+    - "8082:8080"
+
+  rabbitmq:
+    image: rabbitmq:3.7.15-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=food
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  tests:
+    build: .
+    command: pytest -vv
+    volumes:
+      - .:/app
+    environment:
+     - USER_SERVICE_URI=http://user-service:8080
+     - PRODUCT_SERVICE_URI=http://product-service:8080

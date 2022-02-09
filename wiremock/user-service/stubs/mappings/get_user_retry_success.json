@@ -1,0 +1,17 @@
+{
+    "scenarioName": "Get User Retry",
+    "requiredScenarioState": "Successful Request",
+    "newScenarioState": "Started",
+    "request": {
+        "method": "GET",
+        "url": "/users/e6f24d7d1c7e"
+    },
+    "response": {
+        "status": 200,
+        "fixedDelayMilliseconds": 300,
+        "bodyFileName": "user_retry_success.json",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

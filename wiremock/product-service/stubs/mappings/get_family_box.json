@@ -1,0 +1,14 @@
+{
+    "request": {
+        "urlPathPattern": "/products/family-box",
+        "method": "GET"
+    },
+    "response": {
+        "status": 200,
+        "fixedDelayMilliseconds": 60000,
+        "bodyFileName": "family-box.json",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    }
+}

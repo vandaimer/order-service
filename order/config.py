@@ -1,0 +1,16 @@
+import os
+
+
+DATABASE_HOST = os.getenv('DATABASE_HOST', '')
+DATABASE_USER = os.getenv('DATABASE_USER', '')
+DATABASE_PASSWORD = os.getenv('DATABASE_PASSWORD', '')
+DATABASE_NAME = os.getenv('DATABASE_NAME', '')
+
+RABBITMQ_USER = os.getenv('RABBITMQ_USER', '')
+RABBITMQ_PASS = os.getenv('RABBITMQ_PASS', '')
+RABBITMQ_EXCHANGE = os.getenv('RABBITMQ_EXCHANGE', 'orders')
+RABBITMQ_ROUTING_KEY = os.getenv('RABBITMQ_ROUTING_KEY', 'created_order')
+
+RABBITMQ_URI = os.getenv('RABBITMQ_URI', '')
+USER_SERVICE_URI = os.getenv('USER_SERVICE_URI', '')
+PRODUCT_SERVICE_URI = os.getenv('PRODUCT_SERVICE_URI', '')
