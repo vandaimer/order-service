@@ -2,6 +2,8 @@
 
 This is a Python backend test for "The company" candidates to evaluate their programming skill.
 
+### [How I Implemented that - Step-by-step](desc.md)
+
 ## Goal
 
 Nowadays, the Microservice Architecture Pattern has been widely used. However, it has several drawbacks and it can be challenging to implement it.
